@@ -9,6 +9,10 @@ if (!class_exists('Plugin2')) {
         public function getName(): null|string {
             return "plugin2";
         }
+    
+        public function getTitle(): null|string {
+            return "plugin2";
+        }
 
         public function getMessage(): null|string {
             return "the plugin2";

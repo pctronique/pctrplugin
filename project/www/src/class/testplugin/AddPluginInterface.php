@@ -1,12 +1,10 @@
 <?php
 if (!interface_exists('AddPluginInterface')) {
 
-    interface AddPluginInterface
-    {
-    
-        public function getName(): null|string;
-        public function getMessage(): null|string;
+    include_once __DIR__ . '/../pctrplugin/DefaultPluginInterf.php';
 
+    interface AddPluginInterface extends DefaultPluginInterf
+    {
     }
 
 }

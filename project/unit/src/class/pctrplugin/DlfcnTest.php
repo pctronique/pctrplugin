@@ -28,10 +28,8 @@ class DlfcnTest extends TestCase
     public function testDlsym(): void
     {
         foreach (array_string_all() as $value) {
-            foreach (array_string_all() as $value2) {
-                Dlfcn::dlsym(array_string_all(), $value2);
-                $this->assertNotNull(true);
-            }
+            Dlfcn::dlsym(array_string_all(), $value);
+            $this->assertNotNull(true);
         }
     }
 

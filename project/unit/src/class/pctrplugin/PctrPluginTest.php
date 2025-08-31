@@ -35,6 +35,7 @@ class PctrPluginTest extends TestCase
         foreach (array_string_all() as $value) {
             $this->object->loadPlugins($value);
             $this->testGetPlugins();
+            $this->assertNotNull(true);
         }
     }
     

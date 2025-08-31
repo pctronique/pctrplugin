@@ -23,6 +23,9 @@ if (!class_exists('LoadClass')) {
         public function __construct(null|string $file)
         {
             $this->interfaces = [];
+            $this->file = "";
+            $this->name = "";
+            $this->extend = "";
             if($file != null) {
                 $this->file = $file;
                 $this->loadfile();
@@ -74,7 +77,7 @@ if (!class_exists('LoadClass')) {
          */
         private function arrayImp(null|string $values): null|array {
             if($values == null) {
-                return null;
+                return [];
             }
             $valuevirg = str_replace(" ", "", $values);
             return explode(",", $valuevirg);

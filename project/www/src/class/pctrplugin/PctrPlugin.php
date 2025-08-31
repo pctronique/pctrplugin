@@ -20,7 +20,7 @@ if (!class_exists('PctrPlugin')) {
          * 
          * @param string $nameInterf le nom de l'interface qui sera utilisé pour le plugin.
          */
-        public function __construct(string $nameInterf)
+        public function __construct(null|string $nameInterf)
         {
             $this->path = "./plugins/";
             $this->nameInterf = $nameInterf;
@@ -35,6 +35,7 @@ if (!class_exists('PctrPlugin')) {
          */
         public function loadPlugins(null|string $file = null): self
         {
+            if($this->nameInterf === null) { return $this; }
             $folderPlugins = (new Path($this->path))->getAbsoluteParent();
             if(!empty($file)) {
                 $folderPlugins = (new Path($file))->getAbsoluteParent();

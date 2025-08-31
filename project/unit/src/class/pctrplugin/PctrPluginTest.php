@@ -28,7 +28,6 @@ class PctrPluginTest extends TestCase
     private function testing()
     {
         $this->testLoadPlugins();
-        $this->testBase();
     }
     
     public function testLoadPlugins(): void

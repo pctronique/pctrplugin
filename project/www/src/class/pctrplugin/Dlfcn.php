@@ -13,6 +13,10 @@ if (!class_exists('Dlfcn')) {
     class Dlfcn
     {
 
+        private static null|string $dir_prev;
+        private static null|string $name_prev;
+        private static null|string $nb_prev;
+
         /**
          * Récupérer la liste des plugins à partir d'un dossier.
          * 
@@ -20,16 +24,16 @@ if (!class_exists('Dlfcn')) {
          * @return array|null listes de plugins trouvées.
          */
         public static function dlopen(null|string $folder): null|array {
-            if($folder == null) {
-                return [];
+            if($folder !== null && !empty($folder) && is_dir($folder)) {
+                $folder=(new Path($folder))->getAbsolutePath();
+                if(!is_dir($folder)) {
+                    return [];
+                }
+                $files = [];
+                $files = Dlfcn::loadFolderFiles($files, $folder);
+                return $files;
             }
-            $folder=(new Path($folder))->getAbsolutePath();
-            if(!is_dir($folder)) {
-                return [];
-            }
-            $files = [];
-            $files = Dlfcn::loadFolderFiles($files, $folder);
-            return $files;
+            return [];
         }
 
         /**
@@ -64,22 +68,36 @@ if (!class_exists('Dlfcn')) {
          * @return array|null récupération d'une liste de plugins.
          */
         private static function loadFolderFiles(null|array $files, null|string $dir): null|array {
-            if($dir === null || $files === null) {
-                return $files === null ? [] : $files;
-            }
-            $ffs = scandir($dir);
-            unset($ffs[array_search('.', $ffs, true)]);
-            unset($ffs[array_search('..', $ffs, true)]);
-
-            foreach($ffs as $ff){
-                $file = (new Path($dir, $ff))->getAbsolutePath();
-                if(is_dir($file)) {
-                    $files = Dlfcn::loadFolderFiles($files, $file);
+            if(!isset(Dlfcn::$dir_prev)) { Dlfcn::$dir_prev = null; }
+            if(!isset(Dlfcn::$name_prev)) { Dlfcn::$name_prev = null; }
+            if(!isset(Dlfcn::$nb_prev)) { Dlfcn::$nb_prev = 0; }
+            if($dir !== null && $files !== null && !empty($dir) && is_dir($dir) && !is_link($dir) && Dlfcn::$dir_prev !== $dir && $dir !== "/sys/devices") {
+                Dlfcn::$dir_prev = $dir;
+                $file_name = (new Path($dir))->getName();
+                if(Dlfcn::$name_prev !== $file_name) {
+                    Dlfcn::$name_prev = $file_name;
+                    Dlfcn::$nb_prev = 0;
                 } else {
-                    array_push($files, $file);
+                    Dlfcn::$nb_prev++;
                 }
+                if(Dlfcn::$nb_prev === 6) { return []; }
+                $ffs = scandir($dir);
+                if($ffs !== null && !empty($ffs)) {
+                    unset($ffs[array_search('.', $ffs, true)]);
+                    unset($ffs[array_search('..', $ffs, true)]);
+
+                    foreach($ffs as $ff){
+                        $file = (new Path($dir, $ff))->getAbsolutePath();
+                        if(is_dir($file)) {
+                            $files = Dlfcn::loadFolderFiles($files, $file);
+                        } else {
+                            array_push($files, $file);
+                        }
+                    }
+                }
+                return $files;
             }
-            return $files;
+            return $files === null ? [] : $files;
         }
     }
 

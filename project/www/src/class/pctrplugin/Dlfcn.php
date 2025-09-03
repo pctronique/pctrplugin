@@ -26,7 +26,6 @@ if (!class_exists('Dlfcn')) {
         public static function dlopen(null|string $folder): null|array {
             if($folder !== null && !empty($folder) && is_dir($folder)) {
                 $folder=(new Path($folder))->getAbsolutePath();
-                var_dump($folder);
                 if(!is_dir($folder)) {
                     return [];
                 }

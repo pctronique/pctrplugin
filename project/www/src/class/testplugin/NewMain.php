@@ -10,7 +10,7 @@ if (!class_exists('NewMain')) {
             $pctrPlugin = new PctrPlugin("AddPluginInterface");
             $pctrPlugin->loadPlugins();
             foreach ($pctrPlugin->getPlugins() as $value) {
-                echo $value->getName() . " : " . $value->getName() . "<br />";
+                echo $value->getName() . " : " . $value->getTitle() . " : " . $value->getMessage() . "<br />";
             }
         }
         

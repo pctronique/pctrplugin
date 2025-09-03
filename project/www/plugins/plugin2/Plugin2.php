@@ -11,11 +11,11 @@ if (!class_exists('Plugin2')) {
         }
     
         public function getTitle(): null|string {
-            return "plugin2";
+            return "plugin 2";
         }
 
         public function getMessage(): null|string {
-            return "the plugin2";
+            return "the plugin 2";
         }
 
     }

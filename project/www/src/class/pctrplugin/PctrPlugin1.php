@@ -37,7 +37,7 @@ if (!class_exists('PctrPlugin')) {
         public function loadPlugins(null|string $file = null): self
         {
             if($this->nameInterf === null) { return $this; }
-            $folderPlugins = (new Path($this->path, "plugins"))->getAbsoluteParent();
+            $folderPlugins = (new Path($this->path))->getAbsoluteParent();
             if(!empty($file)) {
                 $folderPlugins = (new Path($file))->getAbsoluteParent();
             }
@@ -47,8 +47,6 @@ if (!class_exists('PctrPlugin')) {
                 unset($ffs[array_search('..', $ffs, true)]);
                 foreach ($ffs as $listFile) {
                     $plibobj = Dlfcn::dlopen((new Path($folderPlugins, $listFile))->getAbsoluteParent());
-                $folder=(new Path($folderPlugins . "/" . $listFile))->getAbsolutePath();
-                    var_dump(["folderPlugins" => $folderPlugins, "listFile" => $listFile, "plugin" => $folder, "plibobj" => $plibobj]);
                     if($plibobj == null) {
                         echo "Error loading the library : " . $listFile . "<br />";
                     } else {

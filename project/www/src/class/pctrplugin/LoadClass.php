@@ -26,7 +26,7 @@ if (!class_exists('LoadClass')) {
             $this->file = "";
             $this->name = "";
             $this->extend = "";
-            if($file != null && is_file($file) && is_readable($file) && mime_content_type($file) == "text/plain") {
+            if($file != null && is_file($file) && is_readable($file) && (mime_content_type($file) === "text/plain" || mime_content_type($file) === "text/x-php")) {
                 $this->file = $file;
                 $this->loadfile();
             }

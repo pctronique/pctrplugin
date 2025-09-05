@@ -1,0 +1,12 @@
+[keyPrivate]
+key1 = ""
+key2 = ""
+
+[sgbd]
+type = "mysql"
+server = ""
+port = "0"
+name = ""
+user = "root"
+pass = ""
+prefix = ""

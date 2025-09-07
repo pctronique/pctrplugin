@@ -1,9 +1,10 @@
 <?php
 // verifier qu'on n'a pas deja creer la classe
 if (!class_exists('PctrPlugin')) {
-    include_once __DIR__ . '/../pctrpath/Path.php';
-    
-    include_once __DIR__ . '/Dlfcn.php';
+
+    require_once __DIR__ . '/../pctrpath/Path.php';  
+    require_once __DIR__ . '/Dlfcn.php';
+
     /**
      * Pour simplifier l'utilisation des plugins.
      * @version 1.1.0

@@ -27,15 +27,16 @@ class PctrPluginTest extends TestCase
 
     private function testing()
     {
-        $this->testLoadPlugins();
+        $this->testGetPlugins();
     }
     
     public function testLoadPlugins(): void
     {
+        echo count(array_string_all())."\n";
         foreach (array_string_all() as $value) {
             $this->object->loadPlugins($value);
-            $this->testGetPlugins();
-            $this->assertNotNull(true);
+            $this->testing();
+            $this->assertNotNull($this);
         }
     }
     

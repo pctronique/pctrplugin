@@ -2,8 +2,8 @@
 // verifier qu'on n'a pas deja creer la classe
 if (!class_exists('Dlfcn')) {
 
-    include_once __DIR__ . '/LoadClass.php';
-    include_once __DIR__ . '/../pctrpath/Path.php';
+    require_once __DIR__ . '/LoadClass.php';
+    require_once __DIR__ . '/../pctrpath/Path.php';
 
     /**
      * Travailler avec les plugins en php.

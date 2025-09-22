@@ -2,7 +2,7 @@
 
 Merci de visiter le wiki (https://github.com/pctronique/pctrplugin/wiki).
 
-Pour envoyer facilement des e-mails et la possibilité d'introduire des fichiers dans vos messages a envoyé.
+Pour mettre en place facilement des plugins.
 
 Pas besoin de base de données, pas de configuration pour l'utiliser.
 

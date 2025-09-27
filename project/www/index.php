@@ -33,5 +33,19 @@ include __DIR__ . "/src/class/testplugin/NewMain.php";
 new NewMain();
 
     ?>
+    <h1>Hello world 1!</h1>
+    <?php
+
+include __DIR__ . "/src/class/testplugin/NewMain1.php";
+new NewMain1();
+
+    ?>
+    <h1>Hello world 2!</h1>
+    <?php
+
+include __DIR__ . "/src/class/testplugin/NewMain2.php";
+new NewMain2();
+
+    ?>
 </body>
 </html>

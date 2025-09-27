@@ -1,6 +1,8 @@
 <?php
 // verifier qu'on n'a pas deja creer la classe
 if (!class_exists('LoadClass')) {
+    
+    require_once __DIR__ . '/../pctrpath/Path.php';
 
     /**
      * Lire un php pour trouver le bon plugin.
@@ -18,14 +20,17 @@ if (!class_exists('LoadClass')) {
         /**
          * Constructeur par référence, avec le fichier php à lire.
          * 
-         * @param null|string $file le fichier php à lire
+         * @param null|string|Path $file le fichier php à lire
          */
-        public function __construct(null|string $file)
+        public function __construct(null|string|Path $file)
         {
             $this->interfaces = [];
             $this->file = "";
             $this->name = "";
             $this->extend = "";
+            if($file !== null && strtolower(gettype($file)) === "object" && strtolower(get_class($file)) === "path") {
+                $file = $file->getAbsolutePath();
+            }
             if($file != null && is_file($file) && is_readable($file) && (mime_content_type($file) === "text/plain" || mime_content_type($file) === "text/x-php")) {
                 $this->file = $file;
                 $this->loadfile();

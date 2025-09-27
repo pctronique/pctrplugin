@@ -32,14 +32,16 @@ if (!class_exists('PctrPlugin')) {
         /**
          * Création d'une liste de plugins. Possible de modifier l'emplacement du plugins.
          * 
-         * @param null|string $file modifier l'emplacement du plugins.
+         * @param null|string|Path $file modifier l'emplacement du plugins.
          * @return PctrPlugin
          */
-        public function loadPlugins(null|string $file = null): self
+        public function loadPlugins(null|string|Path $file = null): self
         {
             if($this->nameInterf === null) { return $this; }
             $folderPlugins = (new Path($this->path))->getAbsolutePath();
-            if(!empty($file)) {
+            if($file !== null && strtolower(gettype($file)) === "object" && strtolower(get_class($file)) === "path") {
+                $folderPlugins = $file->getAbsolutePath();
+            } else if(!empty($file)) {
                 $folderPlugins = (new Path($file))->getAbsolutePath();
             }
             if(is_dir($folderPlugins)) {

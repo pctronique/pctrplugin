@@ -20,10 +20,13 @@ if (!class_exists('Dlfcn')) {
         /**
          * Récupérer la liste des plugins à partir d'un dossier.
          * 
-         * @param null|string $folder le dossier qui contient les plugins.
+         * @param null|string|Path $folder le dossier qui contient les plugins.
          * @return array|null listes de plugins trouvées.
          */
-        public static function dlopen(null|string $folder): null|array {
+        public static function dlopen(null|string|Path $folder): null|array {
+            if($folder !== null && strtolower(gettype($folder)) === "object" && strtolower(get_class($folder)) === "path") {
+                $folder = $folder->getAbsolutePath();
+            }
             if($folder !== null && !empty($folder) && is_dir($folder)) {
                 $folder=(new Path($folder))->getAbsolutePath();
                 if(!is_dir($folder)) {
